@@ -3,6 +3,22 @@
   margin: 0 auto;
   text-align: center;
 }
+
+#app {
+  width: 600px;
+  height: 400px;
+  margin: 10 auto;
+  text-align: center;
+  background-color: green;
+}
+
+#title {
+  color: #ffffff;
+}
+
+
+
+
 #flashcards {
   width: 600px;
   height: 300px;
@@ -13,8 +29,9 @@
   font-size: 72px;
   width: 50px;
   text-decoration: none;
-  color: black;
+  #color: black;
   text-align: center;
+  color: #ffffff;
 }
 #prev:hover, #next:hover {
   background: #eee;
@@ -31,7 +48,7 @@
   padding: 20px;
   width: 438px;
   height: 258px;
-  background: #ddd;
+  background: #00f;
   float: left;
   border: 1px solid black;
   border-radius: 5px;
@@ -47,9 +64,11 @@
   font-size: 36px;
   font-weight: bold;
   margin-top: 70px;
+  color: #fff;
 }
 #defn {
   font-size: 20px;
   font-style: italic;
   margin-top: 20px;
+  color: #ee0;
 }

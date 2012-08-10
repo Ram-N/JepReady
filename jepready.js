@@ -1,17 +1,17 @@
 // ADD YOUR OPENMINDS APP ID HERE
-var APP_ID = '500f92bf94d94a5b13000013';
-//var APP_ID = '4fdedcb4d6b77f037b000767';
-// SPECIFY URL OF YOUR REDIRECT URL HERE
-//var REDIRECT_URI = 'http://localhost/~u163202/flashcards/oauth_redirect.html';
-var REDIRECT_URI = 'http://localhost/~u163202/oauth_redirect.html';
+var APP_ID = '5021953d94d94a0dc100126f'; //JepReady's AppId
 
-// The OpenMinds API host.
+// SPECIFY URL OF YOUR REDIRECT URL HERE
+var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
+
+// The OpenMinds API host. (You don't need to change this)
 var API_ROOT = 'http://api.openminds.io';
-// Id of the list to fetch through the OpenMinds API.
-//var DEFAULT_LIST_ID = '4ffb717e94d94a744b000796';
+
+// ID of the list to fetch through the OpenMinds API.
+//We will be changing this to get multiple lists
 var DEFAULT_LIST_ID = '4fe11565d6b77f037b000a7a';
 
-/**
+/*
  *
  */
 function init() {
@@ -57,6 +57,8 @@ function logout() {
   });
 }
 
+/** No need to change anything about the 3 functions above **/
+
 
 /**
  * Once we have an access token, fetch a list through the OpenMinds API
@@ -97,7 +99,7 @@ function getList(listId, success) {
  * Creates the flashcards app using the given OpenMinds list.
  */
 function startFlashcards(list) {
-  var currentIndex = 0;
+  var currentIndex = 0; 
 
   function showCurrentFlashcard() {
     var item = list.items[currentIndex];
@@ -115,6 +117,8 @@ function startFlashcards(list) {
     currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1;
     showCurrentFlashcard();
   }
+
+
 
   $('#next').click(showNextFlashcard);
   $('#prev').click(showPrevFlashcard);
