@@ -35,6 +35,7 @@ function init() {
  * in local storage. If the login is successful, start the flashcard app.
  */
 function login() {
+    console.log("in login function");
   om.logIn({
     appId: APP_ID,
     redirectUri: REDIRECT_URI,
