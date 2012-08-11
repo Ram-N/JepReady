@@ -41,10 +41,12 @@ function login() {
     redirectUri: REDIRECT_URI,
     callback: function(accessToken) {
       if (accessToken) {
+	  console.log("Acc token: ",accessToken);
         postLogIn();
       }
     }
   });
+    console.log("Leaving login function");
 }
 
 
