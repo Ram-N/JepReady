@@ -19,10 +19,12 @@ var DEFAULT_LIST_ID = '4fe11565d6b77f037b000a7a';
  */
 function init() {
   if (localStorage.getItem('omAccessToken')) {
+    console.log("in init. Found omAccessToken");
     om.accessToken = localStorage.getItem('omAccessToken');
     postLogIn();
     $('#logged-out').hide();
   } else {
+    console.log("In init. Need to login and get accessToken");
     $('#login').show();
     $('#logout').hide();
     $('#app').hide();
@@ -36,6 +38,7 @@ function init() {
  */
 function login() {
     console.log("in login function");
+//om.login is an openMinds_connect.js function
   om.logIn({
     appId: APP_ID,
     redirectUri: REDIRECT_URI,
