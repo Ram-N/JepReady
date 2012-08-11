@@ -26,6 +26,3 @@ Here are a few things I wanted to try:
 Thoughts:
 * We can show the same card twice. In the first showing, show the word,
 in the second showing, show both word and defn
-
-Step 1: First, let us start by showing ONLY the word for each card. Hide the defn.
-Step 2: When the nextCard is clicked, show the defn. Create a new variable and toggle front and back

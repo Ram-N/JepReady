@@ -2,7 +2,8 @@
 var APP_ID = '5021953d94d94a0dc100126f'; //JepReady's AppId
 
 // SPECIFY URL OF YOUR REDIRECT URL HERE
-var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
+//var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
+var REDIRECT_URI = 'https://github.com/Ram-N/JepReady/oauth_redirect.html';
 
 // The OpenMinds API host. (You don't need to change this)
 var API_ROOT = 'http://api.openminds.io';
@@ -69,7 +70,7 @@ function postLogIn() {
   $('#logout').show();
   $('#logged-out').hide();
   getList(DEFAULT_LIST_ID, function(list) {
-    startFlashcards(list);
+    startMainApp(list);
   });
 }
 
@@ -96,26 +97,37 @@ function getList(listId, success) {
 
 
 /**
- * Creates the flashcards app using the given OpenMinds list.
+ * Starts the main app using the given OpenMinds list.
  */
-function startFlashcards(list) {
+function startMainApp(list) {
   var currentIndex = 0; 
+  var showDefn = false;
 
   function showCurrentFlashcard() {
-    var item = list.items[currentIndex];
+    var item = list.items[currentIndex]; //we have the item
     $('#word').text(item.word);
-    $('#defn').text(item.defn);
     $('#index').text((currentIndex+1) + '/' + list.items.length);
+    $('#defn').hide();
+    if (showDefn) {
+	$('#defn').text(item.defn);
+	$('#defn').show();
+      }
   }
 
   function showNextFlashcard() {
-    currentIndex = (currentIndex + 1) % list.items.length;
-    showCurrentFlashcard();
+      if (showDefn) { //display next card
+	  currentIndex = (currentIndex + 1) % list.items.length;
+      }
+      showDefn =  (showDefn) ? false : true; //toggling showDefn
+      showCurrentFlashcard();
   }
 
   function showPrevFlashcard() {
-    currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1;
-    showCurrentFlashcard();
+      if (showDefn !=1) { // display prev card
+	  currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1; //wrap around
+      }
+      showDefn =  (showDefn) ? false : true; //toggling showDefn
+      showCurrentFlashcard();
   }
 
 
@@ -134,4 +146,5 @@ function startFlashcards(list) {
   $('#title').text(list.title);
   $('#app').show();
   showCurrentFlashcard();
-}
+
+} //ends function startMainApp

@@ -34,8 +34,8 @@
   color: #ffffff;
 }
 #prev:hover, #next:hover {
-  background: #0b0;
-  color: #ff0;
+  background: #eee;
+  color: #333;
 }
 #prev {
   float: left;
@@ -67,7 +67,7 @@
   color: #fff;
 }
 #defn {
-  font-size: 24px;
+  font-size: 20px;
   font-style: italic;
   margin-top: 20px;
   color: #ee0;
