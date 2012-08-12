@@ -37,19 +37,16 @@ function init() {
  * in local storage. If the login is successful, start the flashcard app.
  */
 function login() {
-    console.log("in login function");
 //om.login is an openMinds_connect.js function
   om.logIn({
     appId: APP_ID,
     redirectUri: REDIRECT_URI,
     callback: function(accessToken) {
       if (accessToken) {
-	  console.log("Acc token: ",accessToken);
         postLogIn();
       }
     }
   });
-    console.log("Leaving login function");
 }
 
 
