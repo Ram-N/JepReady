@@ -123,7 +123,16 @@ function startMainApp(list) {
       if (showDefn) { //display next card
 	  currentIndex = (currentIndex + 1) % list.items.length;
       }
-      showDefn =  (showDefn) ? false : true; //toggling showDefn
+      //showDefn =  (showDefn) ? false : true; //toggling showDefn
+      if (showDefn) {
+	  showDefn=false; //toggling showDefn
+	  $("#flashcard").flip({direction:'lr', color: '#00f'});
+      }
+      else
+      {
+	  showDefn=true; //toggling showDefn
+	  $("#flashcard").flip({direction:'lr', color: '#5B90F6'});
+      }
       showCurrentFlashcard();
   }
 
@@ -131,7 +140,17 @@ function startMainApp(list) {
       if (showDefn !=1) { // display prev card
 	  currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1; //wrap around
       }
-      showDefn =  (showDefn) ? false : true; //toggling showDefn
+      //      showDefn =  (showDefn) ? false : true; //toggling showDefn
+
+      if (showDefn) {
+	  showDefn=false; //toggling showDefn
+	  $("#flashcard").flip({direction:'rl', color: '#00f'});
+      }
+      else
+      {
+	  showDefn=true; //toggling showDefn
+	  $("#flashcard").flip({direction:'rl', color: '#5B90F6'});
+      }
       showCurrentFlashcard();
   }
 
