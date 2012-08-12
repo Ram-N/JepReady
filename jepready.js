@@ -14,6 +14,8 @@ var API_ROOT = 'http://api.openminds.io';
 //We will be changing this to get multiple lists
 var DEFAULT_LIST_ID = '4fe11565d6b77f037b000a7a';
 
+var omlists = ["4fe8dd92d6b77f5461000259","4fe11565d6b77f037b000a7a","4ff39c3a94d94a04370000cb","4ffb717e94d94a744b000796"]
+
 /*
  *
  */
@@ -65,19 +67,32 @@ function logout() {
 
 /** No need to change anything about the 3 functions above **/
 
+/**
+ * Once we have an access token, we are ready to initiate the main App
+ */
+function postLogIn() {
+    $('#login').hide();
+    $('#logout').show();
+    $('#logged-out').hide();
+    initApp();
+  }
+
+
 
 /**
  * Once we have an access token, fetch a list through the OpenMinds API
  * and start the flashcard app with the list.
  */
-function postLogIn() {
-  $('#login').hide();
-  $('#logout').show();
-  $('#logged-out').hide();
-  getList(DEFAULT_LIST_ID, function(list) {
-    startMainApp(list);
-  });
+function initApp() {
+    var index = $.random(4);
+    console.log(index)
+    var listId = omlists[index];
+    getList(listId, function(list) {
+	startMainApp(list);
+    });
 }
+
+
 
 
 /**
