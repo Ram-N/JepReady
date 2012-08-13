@@ -14,6 +14,8 @@ var API_ROOT = 'http://api.openminds.io';
 //We will be changing this to get multiple lists
 var DEFAULT_LIST_ID = '4fe11565d6b77f037b000a7a';
 
+var omlists = ["4fe8dd92d6b77f5461000259","4fe11565d6b77f037b000a7a","4ff39c3a94d94a04370000cb","4ffb717e94d94a744b000796"]
+
 /*
  *
  */
@@ -82,11 +84,35 @@ function postLogIn() {
  * and start the flashcard app with the list.
  */
 function initApp() {
-    var listId = getListIDfromArray(); //in omutils.js
-    //getList is in omutils.js
+    var index = $.random(4);
+    console.log(index)
+    var listId = omlists[index];
     getList(listId, function(list) {
 	startMainApp(list);
     });
+}
+
+
+
+
+/**
+ * Fetches the given list through the OpenMinds API.
+ * @param {String} listId the id of the list to fetch from OpenMinds.
+ * @param {Function} success The handler to call after fetching the list. The
+ *   JSON list data is passed in as the first argument to the handler.
+ */
+function getList(listId, success) {
+  $.ajax({
+    url: API_ROOT + '/0/data/lists/' + listId,
+    dataType: 'json',
+    data: {
+      'sort': 'adaptive',
+      },
+    headers: {
+      'X-OpenMinds-Access-Token': om.accessToken,
+      },
+    success: success,
+  });
 }
 
 
@@ -94,7 +120,6 @@ function initApp() {
  * Starts the main app using the given OpenMinds list.
  */
 function startMainApp(list) {
-
   var currentIndex = 0; 
   var showDefn = false;
 
