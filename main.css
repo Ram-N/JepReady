@@ -10,19 +10,69 @@
   margin: 10 auto;
   text-align: center;
   background-color: green;
+  background-image: url(images/woodbackground.jpg);
 }
+
+#menuPage {
+  width: 600px;
+  height: 400px;
+  margin: 10 auto;
+  text-align: center;
+  background-color: darkblue;
+}
+
+#r-option {
+  #position: relative;
+  top: 50px;
+  #float: right;
+  left: 200px;
+  width: 200px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  # margin-top: 70px;
+  color: #fff;
+  background-color: #000;
+  margin-bottom: 10px;
+  margin-right: auto;
+  margin-top: 100px;
+  text-decoration: none;
+}
+
+#l-option {
+  #position: relative;
+  float: left;
+  top: 200px;
+  left: 200px;
+  #margin-right: 50px;
+  width: 200px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  #margin-top: 70px;
+  color: #fff;
+  background-color: #000;
+  margin-bottom: 10px;
+  margin-top: 100px;
+  text-decoration: none;
+}
+
+#l-option:hover, #r-option:hover {
+  background: blue;
+  color: #ff0;
+}
+
 
 #title {
   color: #ffffff;
 }
 
 
-
-
 #flashcards {
   width: 600px;
   height: 300px;
 }
+
 #prev, #next {
   height: 300px;
   line-height: 300px;
@@ -33,16 +83,67 @@
   text-align: center;
   color: #ffffff;
 }
-#prev:hover, #next:hover {
+
+#small_next {
+  height: 150px;
+  line-height: 140px;
+  font-size: 56px;
+  width: 50px;
+  text-decoration: none;
+  #color: black;
+  text-align: center;
+  color: #ffffff;
+}
+
+#missed_next {
+  height: 150px;
+  line-height: 140px;
+  font-size: 56px;
+  width: 50px;
+  text-decoration: none;
+  #color: black;
+  text-align: center;
+  color: #ffffff;
+}
+
+
+#small_next {
   background: #0b0;
   color: #ff0;
 }
+
+#missed_next {
+  background: #f00;
+  color: #ff0;
+}
+
+
+#small_next:hover, #missed_next:hover {
+  color: #000;
+}
+
+
+#prev:hover, #next:hover {
+  background: #000;
+  color: #ff0;
+}
+
+
 #prev {
   float: left;
 }
 #next {
   float: right;
 }
+
+#small_next {
+  float: right;
+}
+
+#missed_next {
+  float: right;
+}
+
 #flashcard {
   margin: 0 10px;
   padding: 20px;
@@ -60,15 +161,40 @@
   top: 10px;
   right: 10px;
 }
+
 #word {
   font-size: 36px;
   font-weight: bold;
   margin-top: 70px;
   color: #fff;
 }
+
+#word:hover {
+  color: #ff0;
+}
+
+
 #defn {
   font-size: 24px;
   font-style: italic;
   margin-top: 20px;
   color: #ee0;
+}
+
+
+#button {
+  position: relative;
+  float: bottom;
+  left: 200px;
+  width: 200px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  # margin-top: 70px;
+  color: #00f;
+  background-color: #fff;
+  margin-bottom: 10px;
+  margin-right: auto;
+  margin-top: 100px;
+  text-decoration: none;
 }
