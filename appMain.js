@@ -10,13 +10,18 @@ var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
 var API_ROOT = 'http://api.openminds.io';
 
 
+//Global Parameters here
+// example usage: alert(glob.debug_flag); 
 var glob = { 
     mode: "p",
-    debug_flag : 1, 
-    debug_cards : 0
-}; // usage: alert(glob.debug_flag); 
+    solution_visible: 0,
+    reviewed: 0,
+    correct:0,
+    wrong:0,
+    debug_flag : 0, 
+}; 
 
-
+var viewedArray = [];
 
 /*
  *
@@ -92,61 +97,22 @@ function postLogIn() {
  */
 function initApp() {    
 
-    var listId = getListIDfromArray(); //in omutils.js 
-
-
-    createCardElements();
-
-    displayAppMainPage();
-
+    createCardElements(); //AppView.js
+    createMenuElements();
+    displayAppMenuPage();
     console.log("mode", glob.mode);
-
-    $(window).keydown(function(e) {
-	if (e.keyCode == 39) {
-	    getList(listId, function(list) {
-		startMainApp(list);
-	    });	    
-	}	     
-    });
-
 }
 
 
-function displayAppMainPage(){
+function displayAppMenuPage(){
 
-    var $menuPage = $('<div id="menuPage">  </div>');
-
-    //TODO: make these into function calls
-    var $ropt1 = $('<a id="r-option" href="#" ></a>');
-    var $ropt2 = $('<a id="r-option" href="#" ></a>');
-
-    var $lopt1 = $('<a id="l-option" href="#" > </a>');
-    var $lopt2 = $('<a id="l-option" href="#" > </a>');
-
-    var $br = $('<br> </br>');
-
-    $('#app').show();
-    $('#flashcards').hide();
-
-    $('#app').prepend($menuPage);
-    $('#menuPage').append($ropt1);
-    $('#menuPage').append($ropt2);
-
-    $('#menuPage').append($lopt1);
-    $('#menuPage').append($lopt2);
-    
-    $ropt1.text("Practice");
-    $ropt2.text("Self-test");
-
-    $lopt1.text("Select List");
-    $lopt2.text(" ");
 
     var listId = getListIDfromArray(); //in omutils.js 
-    
-/*    $('#r-option').click(getList(listId, function(list){
-	startMainApp(list);
-    }));
-*/
+    var $ropt1 = $('#r-option');
+    var $ropt2 = $('#r2');
+
+    $('#menuPage').show();
+    $('#flashcards').hide();
 
     $ropt1.click(function() {
 	glob.mode = "p";
@@ -167,29 +133,6 @@ function displayAppMainPage(){
 }
 
 
-
-/**
- * Creates a few elements in the Actual app screen. Attach to the right place
- * This function is called initially, only once.
- * After this call, the elements are controlled with show() and hide() functions
- */
-function createCardElements() {
-
-
-    var $oknext = $('<a id="small_next" href="#">&#10003;</a>'); //check mark
-    var $missednext = $('<a id="missed_next" href="#">&#10006;</a>'); //heavy cross
-    var $backbutton = $('<a id="button" href="#" > </a>');
-
-    $backbutton.text("Back to Main");
-    $('#flashcards').append($oknext);
-    $('#flashcards').append($missednext);
-    $('#flashcards').append($backbutton);
-
-
-}
-
-
-
 /**
  * Starts the main app using the given OpenMinds list.
  */
@@ -201,17 +144,29 @@ function startMainApp(list) {
     var $oknext = $('#small_next');
     var $missednext = $('#missed_next');
     var $backbutton = $('#button');
+    var     $score = $('#score');
 
+    glob.solution_visible= 0
+    resetScores();
+    initViewedArray();
+    glob.reviewed = 0
 
     console.log("startMain mode", glob.mode);
 
+    if (glob.mode == "t") {
+	$score.show();
+    }
+
     function showCurrentFlashcard() {
 	var item = list.items[currentIndex]; //we have the item
-	$('#word').text(item.word);
+	cardHasBeenViewed(currentIndex);
+	$score.text(" Score " + glob.correct + " / " + (glob.reviewed-1));
+
+	$('#word').text(item.defn); //note that for Jeopardy we switch word and defn. The answer is shown first.
 	$('#index').text((currentIndex+1) + '/' + list.items.length);
 	$('#defn').hide();
 	if (showDefn) {
-	    $('#defn').text(item.defn);
+	    $('#defn').text(item.word);
 	    $('#defn').show();
 	}
     }
@@ -223,12 +178,16 @@ function startMainApp(list) {
       //showDefn =  (showDefn) ? false : true; //toggling showDefn
       if (showDefn) {
 	  showDefn=false; //toggling showDefn
-	  $("#flashcard").flip({direction:'lr', color: '#00f'});
+	  $("#flashcard").flip({direction:'lr', color: '#5B90F6'});
+	  glob.solution_visible= 0;
+	  toggleNextElements();
       }
       else
       {
 	  showDefn=true; //toggling showDefn
-	  $("#flashcard").flip({direction:'lr', color: '#5B90F6'});
+	  $("#flashcard").flip({direction:'lr', color: '#00f'});
+	  glob.solution_visible= 1;
+	  toggleNextElements();
       }
       showCurrentFlashcard();
   }
@@ -241,12 +200,16 @@ function startMainApp(list) {
 
       if (showDefn) {
 	  showDefn=false; //toggling showDefn
-	  $("#flashcard").flip({direction:'rl', color: '#00f'});
+	  $("#flashcard").flip({direction:'rl', color: '#5B90F6'});
+	  glob.solution_visible= 0;
+	  toggleNextElements();
       }
       else
       {
 	  showDefn=true; //toggling showDefn
-	  $("#flashcard").flip({direction:'rl', color: '#5B90F6'});
+	  $("#flashcard").flip({direction:'rl', color: '#00f'});
+	  glob.solution_visible= 1;
+	  //toggleNextElements(); No scoring when looking at prev options
       }
       showCurrentFlashcard();
   }
@@ -259,13 +222,19 @@ function startMainApp(list) {
     $('#next').click(showNextFlashcard);
     $('#prev').click(showPrevFlashcard);
 
-    $oknext.click(showNextFlashcard);
-    $missednext.click(showNextFlashcard);
+    $oknext.click(function(){
+	updateScores(1);
+	showNextFlashcard();
+    });
+    
+    $missednext.click(function(){
+	updateScores(0);
+	showNextFlashcard();
+    });
 
 
     $backbutton.click(function() {
-	$('#flashcards').hide();
-	$('#menuPage').show();
+	displayAppMenuPage();
     });
 
 
@@ -278,25 +247,12 @@ function startMainApp(list) {
     });
 
 
-
-    if (glob.mode == "t") {
-	$('#next').hide();
-	$oknext.show();
-	$missednext.show();
-    }
-    if (glob.mode == "p") {
-	$('#next').show();
-	//$('#small_next').hide();
-	$oknext.hide();
-	$missednext.hide();
-    }
-
+    // Render the list title and show the first flashcard.
     $('#menuPage').hide();
     $('#flashcards').show();
-
-    // Render the list title and show the first flashcard.
     $('#title').text(list.title);
     $('#app').show();
+
 
     showCurrentFlashcard();
 
