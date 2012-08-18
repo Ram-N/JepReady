@@ -21,40 +21,60 @@
   background-color: darkblue;
 }
 
-#r-option {
-  #position: relative;
-  top: 50px;
-  #float: right;
-  left: 200px;
-  width: 200px;
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
-  # margin-top: 70px;
-  color: #fff;
-  background-color: #000;
-  margin-bottom: 10px;
-  margin-right: auto;
-  margin-top: 100px;
-  text-decoration: none;
+
+#menuTable {
+    position: relative;
+    width: 600px;
+    border: 1px;
+    margin: 10 auto;
+    text-align: center;
+    #background-color: blue;
+    top: 100px;
 }
 
-#l-option {
-  #position: relative;
-  float: left;
-  top: 200px;
-  left: 200px;
-  #margin-right: 50px;
-  width: 200px;
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
-  #margin-top: 70px;
-  color: #fff;
-  background-color: #000;
-  margin-bottom: 10px;
-  margin-top: 100px;
-  text-decoration: none;
+
+#cell {
+    width: 200px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #000;
+}
+
+#anc12, #anc22, #anc32  {
+    width: 200px;
+    color: #fff;
+    text-decoration: none;
+}
+
+#anc12:hover, #anc22:hover, #anc32:hover {
+  color: #ff0;
+  background: blue;
+}
+
+
+#r-option, #r2 {
+    position: relative;
+    width: 200px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    # margin-top: 70px;
+    color: #fff;
+    background-color: #000;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-top: 100px;
+    text-decoration: none;
+
+}
+
+#r-option, #r2 {
+    float: right;
+}
+
+#r2 {
+    top: 75px;
 }
 
 #l-option:hover, #r-option:hover {
@@ -149,7 +169,7 @@
   padding: 20px;
   width: 438px;
   height: 258px;
-  background: #00f;
+  background: #5B90F6;
   float: left;
   border: 1px solid black;
   border-radius: 5px;
@@ -197,4 +217,19 @@
   margin-right: auto;
   margin-top: 100px;
   text-decoration: none;
+}
+
+
+#score {
+  position: relative;
+  float: left;
+  float: bottom;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  # margin-top: 70px;
+  color: #000;
+  #background-color: #fff;
+  margin-right: auto;
+  
 }

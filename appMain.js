@@ -1,94 +1,18 @@
-// ADD YOUR OPENMINDS APP ID HERE
-var APP_ID = '5021953d94d94a0dc100126f'; //JepReady's AppId
-//var APP_ID = '5026153494d94a29659aa97f'; //JepReady on GitHub
-
-// SPECIFY URL OF YOUR REDIRECT URL HERE
-var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
-//var REDIRECT_URI = 'http://ram-n.github.com/JepReady/oauth_redirect.html';
-
-// The OpenMinds API host. (You don't need to change this)
-var API_ROOT = 'http://api.openminds.io';
+//Javascript document
 
 
-//Global Parameters here
-// example usage: alert(glob.debug_flag); 
+//If your App has any Global variables/parameters, ADD them here
+// example usage: alert(glob.debugFlag); 
 var glob = { 
-    mode: "p",
-    solution_visible: 0,
+    mode: "p", //can be (p)ractice, (r)eview, or (t)est
+    solutionVisible: 0,
     reviewed: 0,
     correct:0,
     wrong:0,
-    debug_flag : 0, 
+    debugFlag : 0, 
 }; 
 
 var viewedArray = [];
-
-/*
- *
- */
-function init() {
-  if (localStorage.getItem('omAccessToken')) {
-    console.log("in init. Found omAccessToken");
-    om.accessToken = localStorage.getItem('omAccessToken');
-    postLogIn();
-    $('#logged-out').hide();
-  } else {
-    console.log("In init. Need to login and get accessToken");
-    $('#login').show();
-    $('#logout').hide();
-    $('#app').hide();
-  }
-}
-
-
-/**
- * Logs the user in with OpenMinds and stores the API access token
- * in local storage. If the login is successful, start the flashcard app.
- */
-function login() {
-    //om.login is an openMinds_connect.js function
-    console.log("in login");
-    om.logIn({
-	appId: APP_ID,
-	redirectUri: REDIRECT_URI,
-	callback: function(accessToken) {
-	    if (accessToken) {
-		console.log("calling postLogIn");
-		postLogIn();
-	    }
-	}
-    });
-
-}
-
-
-/**
- * Logs the user out of OpenMinds and clears the access token from
- * local storage. Shows the logged-out view of the page.
- */
-function logout() {
-  om.logOut(function() {
-    $('#app').hide();
-    $('#logout').hide();
-    $('#logged-out').show();
-    $('#login').show();
-  });
-}
-
-/** No need to change anything about the 3 functions above **/
-
-/**
- * Once we have an access token, we are ready to initiate the main App
- */
-function postLogIn() {
-    console.log("in postLogIn");
-    $('#login').hide();
-    $('#logout').show();
-    $('#logged-out').hide();
-    console.log("in postLogIn");
-    initApp();
-  }
-
 
 
 /**
@@ -106,23 +30,29 @@ function initApp() {
 
 function displayAppMenuPage(){
 
-
     var listId = getListIDfromArray(); //in omutils.js 
-    var $ropt1 = $('#r-option');
-    var $ropt2 = $('#r2');
+    var $opt12 = $('#anc12');
+    var $opt22 = $('#anc22');
+    var $opt32 = $('#anc32');
 
     $('#menuPage').show();
     $('#flashcards').hide();
 
-    $ropt1.click(function() {
+    $opt12.click(function() {
 	glob.mode = "p";
 	getList(listId, function(list) {
 	    startMainApp(list);
 	});	    
-
     });
 
-    $ropt2.click(function() {
+    $opt22.click(function() {
+	glob.mode = "r";
+	getList(listId, function(list) {
+	    startMainApp(list);
+	});	    
+    });
+    
+    $opt32.click(function() {
 	glob.mode = "t";
 	getList(listId, function(list) {
 	    startMainApp(list);
@@ -146,7 +76,7 @@ function startMainApp(list) {
     var $backbutton = $('#button');
     var     $score = $('#score');
 
-    glob.solution_visible= 0
+    glob.solutionVisible= 0
     resetScores();
     initViewedArray();
     glob.reviewed = 0
@@ -155,6 +85,9 @@ function startMainApp(list) {
 
     if (glob.mode == "t") {
 	$score.show();
+    }
+    else {
+	$score.hide();
     }
 
     function showCurrentFlashcard() {
@@ -171,54 +104,63 @@ function startMainApp(list) {
 	}
     }
 
-  function showNextFlashcard() {
-      if (showDefn) { //display next card
-	  currentIndex = (currentIndex + 1) % list.items.length;
-      }
-      //showDefn =  (showDefn) ? false : true; //toggling showDefn
-      if (showDefn) {
-	  showDefn=false; //toggling showDefn
-	  $("#flashcard").flip({direction:'lr', color: '#5B90F6'});
-	  glob.solution_visible= 0;
-	  toggleNextElements();
-      }
-      else
-      {
-	  showDefn=true; //toggling showDefn
-	  $("#flashcard").flip({direction:'lr', color: '#00f'});
-	  glob.solution_visible= 1;
-	  toggleNextElements();
-      }
-      showCurrentFlashcard();
-  }
+    function showNextFlashcard() {
 
-  function showPrevFlashcard() {
-      if (showDefn !=1) { // display prev card
-	  currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1; //wrap around
-      }
-      //      showDefn =  (showDefn) ? false : true; //toggling showDefn
+	if(glob.mode == "r") {
+	    currentIndex = (currentIndex + 1) % list.items.length;
+	}
+	else { //mode is p or t
+	    if (showDefn) { //display next card
+		currentIndex = (currentIndex + 1) % list.items.length;
+	    }
+	    //showDefn =  (showDefn) ? false : true; //toggling showDefn
+	    if (showDefn) {
+		showDefn=false; //toggling showDefn
+		$("#flashcard").flip({direction:'lr', color: '#5B90F6'});
+		glob.solutionVisible= 0;
+		toggleNextElements();
+	    }
+	    else
+	    {
+		showDefn=true; //toggling showDefn
+		$("#flashcard").flip({direction:'lr', color: '#00f'});
+		glob.solutionVisible= 1;
+		toggleNextElements();
+	    }
+	}
 
-      if (showDefn) {
-	  showDefn=false; //toggling showDefn
-	  $("#flashcard").flip({direction:'rl', color: '#5B90F6'});
-	  glob.solution_visible= 0;
-	  toggleNextElements();
-      }
-      else
-      {
-	  showDefn=true; //toggling showDefn
-	  $("#flashcard").flip({direction:'rl', color: '#00f'});
-	  glob.solution_visible= 1;
-	  //toggleNextElements(); No scoring when looking at prev options
-      }
-      showCurrentFlashcard();
-  }
+	showCurrentFlashcard();
+    }
+
+    function showPrevFlashcard() {
+
+	if(glob.mode == "r") {
+	    currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1; //wrap around
+	}
+	else {
+	    if (showDefn !=1) { // display prev card
+		currentIndex = (currentIndex == 0) ? list.items.length - 1 : currentIndex - 1; //wrap around
+	    }
+
+	    if (showDefn) {
+		showDefn=false; //toggling showDefn
+		$("#flashcard").flip({direction:'rl', color: '#5B90F6'});
+		glob.solutionVisible= 0;
+		toggleNextElements();
+	    }
+	    else
+	    {
+		showDefn=true; //toggling showDefn
+		$("#flashcard").flip({direction:'rl', color: '#00f'});
+		glob.solutionVisible= 1;
+		//toggleNextElements(); No scoring when looking at prev options
+	    }
+	}
+	
+	showCurrentFlashcard();
+    }
 
 
-
-    $('#word').click(function() {
-            alert("word clicked!");
-        });
     $('#next').click(showNextFlashcard);
     $('#prev').click(showPrevFlashcard);
 
@@ -230,11 +172,6 @@ function startMainApp(list) {
     $missednext.click(function(){
 	updateScores(0);
 	showNextFlashcard();
-    });
-
-
-    $backbutton.click(function() {
-	displayAppMenuPage();
     });
 
 
@@ -255,5 +192,10 @@ function startMainApp(list) {
 
 
     showCurrentFlashcard();
+
+    $backbutton.click(function() {
+	displayAppMenuPage();
+    });
+
 
 } //ends function startMainApp
