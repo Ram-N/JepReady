@@ -13,6 +13,21 @@
   background-image: url(images/woodbackground.jpg);
 }
 
+#appTitle, #listPageTitle {
+  font-size: 36px;
+  font-weight: bold;
+  #margin-top: 70px;
+  color: #ff0;
+}
+
+#listTitle {
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #fff;
+}
+
+
 #menuPage {
   width: 600px;
   height: 400px;
@@ -32,6 +47,23 @@
     top: 100px;
 }
 
+#listTable {
+    position: relative;
+    width: 600px;
+    border: 1px;
+    margin: 10 auto;
+    text-align: center;
+    #background-color: blue;
+    top: 100px;
+}
+
+#lopt11, #lopt21, #lopt31 {
+    width: 200px;
+    color: #fff;
+    text-decoration: none;
+}
+
+
 
 #cell {
     width: 200px;
@@ -41,13 +73,18 @@
     background-color: #000;
 }
 
-#anc12, #anc22, #anc32  {
+#anc12, #anc22, #anc32, #anc21  {
     width: 200px;
     color: #fff;
     text-decoration: none;
 }
 
 #anc12:hover, #anc22:hover, #anc32:hover {
+  color: #ff0;
+  background: blue;
+}
+
+#anc21:hover, #anc11:hover, #anc31:hover {
   color: #ff0;
   background: blue;
 }
@@ -203,7 +240,7 @@
 }
 
 
-#button {
+#button, #l_button {
   position: relative;
   float: bottom;
   left: 110px;

@@ -5,6 +5,8 @@
 // example usage: alert(glob.debugFlag); 
 var glob = { 
     mode: "p", //can be (p)ractice, (r)eview, or (t)est
+    listID: 0,
+    activeListTitle: "Active List",
     solutionVisible: 0,
     reviewed: 0,
     correct:0,
@@ -14,6 +16,7 @@ var glob = {
 
 var viewedArray = [];
 
+var omlists = ["5031ec0494d94a742611635f","4ffb717e94d94a744b000796", "4ffb717e94d94a744b000796"];
 
 /**
  * Once we have an access token, fetch a list through the OpenMinds API
@@ -22,27 +25,39 @@ var viewedArray = [];
 function initApp() {    
 
     createCardElements(); //AppView.js
+    createListElements();
     createMenuElements();
+
     displayAppMenuPage();
-    console.log("mode", glob.mode);
+    glob.listID = getListIDfromArray(); //in omutils.js 
 }
 
 
 function displayAppMenuPage(){
 
-    var listId = getListIDfromArray(); //in omutils.js 
+    var listId;
+
+    var $opt21 = $('#anc21');
+
     var $opt12 = $('#anc12');
     var $opt22 = $('#anc22');
     var $opt32 = $('#anc32');
 
     $('#menuPage').show();
+    $('#listPage').hide();
     $('#flashcards').hide();
+    $('#listTitle').text(glob.activeListTitle);
 
     glob.solutionVisible= 0;
     resetScores();
     initViewedArray();
     glob.reviewed = 0;
 
+    $opt21.click(function() {
+	displayListPage();
+    });
+
+    listId = glob.listID;
 
     $opt12.click(function() {
 	glob.mode = "p";
@@ -67,6 +82,57 @@ function displayAppMenuPage(){
     });
 
 }
+
+
+function updateActiveList(list){
+    
+    glob.activeListTitle = list.title;
+
+}
+
+
+function displayListPage(){
+
+    var $backbutton = $('#l_button');
+    var $opt11 = $('#lopt11');
+    var $opt21 = $('#lopt21');
+    var $opt31 = $('#lopt31');
+
+    $('#listPage').show();
+    $('#menuPage').hide();
+    $('#flashcards').hide();
+
+    $opt11.click(function() {
+	glob.listID = omlists[0];
+	getList(glob.listID, function(list) {
+	    updateActiveList(list);
+	});	    
+	displayAppMenuPage();
+    });
+
+    $opt21.click(function() {
+	glob.listID = omlists[1];
+	getList(glob.listID, function(list) {
+	    updateActiveList(list);
+	});	    
+	displayAppMenuPage();
+    });
+
+    $opt31.click(function() {
+	glob.listID = omlists[2];
+	getList(glob.listID, function(list) {
+	    updateActiveList(list);
+	});	    
+	displayAppMenuPage();
+    });
+
+    $backbutton.click(function() {
+	displayAppMenuPage();
+    });
+
+}
+
+
 
 
 /**
@@ -172,12 +238,15 @@ function startMainApp(list) {
     $('#prev').click(showPrevFlashcard);
 
     $oknext.click(function(){
-	updateScores(1);
+	glob.correct++;
+	//updateScores(1);
+	//alert($oknext.length);
 	showNextFlashcard();
     });
     
     $missednext.click(function(){
-	updateScores(0);
+	glob.wrong++;
+	//updateScores(0);
 	showNextFlashcard();
     });
 
@@ -201,6 +270,10 @@ function startMainApp(list) {
     showCurrentFlashcard();
 
     $backbutton.click(function() {
+	glob.solutionVisible= 0;
+	resetScores();
+	initViewedArray();
+	glob.reviewed = 0;
 	displayAppMenuPage();
     });
 

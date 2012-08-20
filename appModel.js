@@ -1,7 +1,9 @@
 
 
 //var omlists = ["4fe8dd92d6b77f5461000259","4fe11565d6b77f037b000a7a","4ff39c3a94d94a04370000cb","4ffb717e94d94a744b000796", "501a3c9894d94a0dc100052e"];
-var omlists = ["502dea8a94d94a7426116048"];
+
+
+
 
 /**
  * choose a list randomly
@@ -10,7 +12,8 @@ function getListIDfromArray() {
     var index = $.random(1);
     //console.log(index)
     var listId = omlists[index];
-    return listId
+    glob.listID = listId;
+    return listId;
 }
 
 
