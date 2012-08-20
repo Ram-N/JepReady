@@ -38,6 +38,12 @@ function displayAppMenuPage(){
     $('#menuPage').show();
     $('#flashcards').hide();
 
+    glob.solutionVisible= 0;
+    resetScores();
+    initViewedArray();
+    glob.reviewed = 0;
+
+
     $opt12.click(function() {
 	glob.mode = "p";
 	getList(listId, function(list) {
@@ -76,10 +82,10 @@ function startMainApp(list) {
     var $backbutton = $('#button');
     var     $score = $('#score');
 
-    glob.solutionVisible= 0
+    glob.solutionVisible= 0;
     resetScores();
     initViewedArray();
-    glob.reviewed = 0
+    glob.reviewed = 0;
 
     console.log("startMain mode", glob.mode);
 
@@ -92,13 +98,13 @@ function startMainApp(list) {
 
     function showCurrentFlashcard() {
 	var item = list.items[currentIndex]; //we have the item
-	cardHasBeenViewed(currentIndex);
-	$score.text(" Score " + glob.correct + " / " + (glob.reviewed-1));
+	$score.text(" Score " + glob.correct + " / " + (glob.reviewed));
 
 	$('#word').text(item.defn); //note that for Jeopardy we switch word and defn. The answer is shown first.
 	$('#index').text((currentIndex+1) + '/' + list.items.length);
 	$('#defn').hide();
 	if (showDefn) {
+	    defnHasBeenViewed(currentIndex);
 	    $('#defn').text(item.word);
 	    $('#defn').show();
 	}
@@ -118,14 +124,14 @@ function startMainApp(list) {
 		showDefn=false; //toggling showDefn
 		$("#flashcard").flip({direction:'lr', color: '#5B90F6'});
 		glob.solutionVisible= 0;
-		toggleNextElements();
+		toggleNextElements(currentIndex);
 	    }
 	    else
 	    {
 		showDefn=true; //toggling showDefn
 		$("#flashcard").flip({direction:'lr', color: '#00f'});
 		glob.solutionVisible= 1;
-		toggleNextElements();
+		toggleNextElements(currentIndex);
 	    }
 	}
 
@@ -146,14 +152,15 @@ function startMainApp(list) {
 		showDefn=false; //toggling showDefn
 		$("#flashcard").flip({direction:'rl', color: '#5B90F6'});
 		glob.solutionVisible= 0;
-		toggleNextElements();
+		showRaQuo();
+		//toggleNextElements(currentIndex);
 	    }
 	    else
 	    {
 		showDefn=true; //toggling showDefn
 		$("#flashcard").flip({direction:'rl', color: '#00f'});
 		glob.solutionVisible= 1;
-		//toggleNextElements(); No scoring when looking at prev options
+		showRaQuo();
 	    }
 	}
 	

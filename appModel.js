@@ -29,7 +29,7 @@ function resetScores() {
 }
 
 
-function cardHasBeenViewed(currentIndex){
+function defnHasBeenViewed(currentIndex){
 
     if( viewedArray[currentIndex] == 0) {
 	glob.reviewed++;    
@@ -41,9 +41,63 @@ function cardHasBeenViewed(currentIndex){
 function initViewedArray() {
     
     var i;
+
+    glob.reviewed = 0;
     for (i=0; i<100; i++)
     {
 	viewedArray[i] = 0;
     }
 
 }
+
+/*
+ * Depending on the mode, different sets of Next >> buttons are shown
+ * The right/wrong buttons are shown only if defn is also visible
+ */
+
+function toggleNextElements(currentIndex) {
+
+    if (glob.mode == "p" || glob.mode == "r" ) {
+	return;
+    }
+
+    // should not allow scoring if the card has been previously viewed
+    if( viewedArray[currentIndex] == 1) {
+	return;
+    }
+
+    var $oknext = $('#small_next');
+    var $missednext = $('#missed_next');
+
+    if (glob.solutionVisible){
+	$('#next').hide();
+	$oknext.show();
+	$missednext.show();
+    }
+    else{
+	$('#next').show();
+	$oknext.hide();
+	$missednext.hide();
+    }
+
+}
+
+
+
+/* show the right pointing double angle quotation mark */
+function showRaQuo() {
+
+    if (glob.mode == "p" || glob.mode == "r" ) {
+	return;
+    }
+
+    var $oknext = $('#small_next');
+    var $missednext = $('#missed_next');
+    
+    $('#next').show();
+    $oknext.hide();
+    $missednext.hide();
+}
+
+
+

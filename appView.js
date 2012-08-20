@@ -108,7 +108,7 @@ function createCardElements() {
 function updateScores(gotit) {
     var $score = $('#score');
 
-    if (glob.mode == "p") {
+    if (glob.mode == "p" || glob.mode == "r") {
 	return;
     }
 
@@ -121,33 +121,5 @@ function updateScores(gotit) {
 
 }
 
-
-/*
- * Depending on the mode, different sets of Next >> buttons are shown
- * The right/wrong buttons are shown only if defn is also visible
- */
-
-function toggleNextElements() {
-
-    if (glob.mode == "p") {
-	return;
-    }
-
-    var $oknext = $('#small_next');
-    var $missednext = $('#missed_next');
-
-    if (glob.solutionVisible){
-	$('#next').hide();
-	$oknext.show();
-	$missednext.show();
-    }
-    else{
-	$('#next').show();
-	$oknext.hide();
-	$missednext.hide();
-    }
-
-
-}
 
 
