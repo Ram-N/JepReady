@@ -206,3 +206,113 @@ function updateScores(gotit) {
 
 
 
+function displayAppMenuPage(){
+
+    $('#menuPage').show();
+    $('#listPage').hide();
+    $('#flashcards').hide();
+    $('#listTitle').text(glob.activeListTitle);
+
+    glob.solutionVisible= 0;
+    resetScores();
+    initViewedArray();
+    glob.reviewed = 0;
+
+}
+
+function displayListPage(){
+    $('#listPage').show();
+    $('#menuPage').hide();
+    $('#flashcards').hide();
+}
+
+
+function showCurrentFlashcard() {
+
+    var $defn = $('#defn');
+    var $question = $('#word');
+    var $score = $('#score');
+
+    var item = glob.list.items[glob.currentIndex]; //we have the item
+    $score.text(" Score " + glob.correct + " / " + (glob.reviewed));
+    $question.text(item.defn); //note that for Jeopardy we switch word and defn. The answer is shown first.
+    $('#index').text((glob.currentIndex+1) + '/' + glob.list.items.length);
+    $defn.text(item.word);
+    $question.show();
+    $defn.hide();
+    if (glob.showDefn) {
+	defnHasBeenViewed(glob.currentIndex);
+	$defn.show();
+    }
+}
+
+
+function showNextFlashcard() {
+
+    var $defn = $('#defn');
+    var $question = $('#word'); 
+    var $flashcard = $("#flashcard");
+   
+    if(glob.mode == "r") {
+	glob.currentIndex = (glob.currentIndex + 1) % glob.list.items.length;
+	$defn.hide();
+	$question.show();	    
+    }
+    else { //mode is p or t
+	if (glob.showDefn) { //display next card
+	    glob.currentIndex = (glob.currentIndex + 1) % glob.list.items.length;
+	}
+	//showDefn =  (showDefn) ? false : true; //toggling showDefn
+	if (glob.showDefn) {
+	    glob.showDefn=false; //toggling showDefn
+	    $flashcard.flip({direction:'lr', color: '#5B90F6'});
+	    glob.solutionVisible= 0;
+	    toggleNextElements(glob.currentIndex);
+	}
+	else
+	{
+	    glob.showDefn=true; //toggling showDefn
+	    $flashcard.flip({direction:'lr', color: '#00f'});
+	    glob.solutionVisible= 1;
+	    toggleNextElements(glob.currentIndex);
+	}
+    }
+    
+    showCurrentFlashcard();
+}    
+
+
+function showPrevFlashcard() {
+    var $flashcard = $("#flashcard");
+    var $defn = $('#defn');
+    var $question = $('#word');
+    
+    if(glob.mode == "r") {
+	glob.currentIndex = (glob.currentIndex == 0) ? glob.list.items.length - 1 : glob.currentIndex - 1; //wrap around
+	$defn.hide();
+	$question.show();	    
+    }
+    else {
+	if (glob.showDefn !=1) { // display prev card
+	    glob.currentIndex = (glob.currentIndex == 0) ? glob.list.items.length - 1 : glob.currentIndex - 1; //wrap around
+	}
+	
+	if (glob.showDefn) {
+	    glob.showDefn=false; //toggling showDefn
+	    $flashcard.flip({direction:'rl', color: '#5B90F6'});
+	    glob.solutionVisible= 0;
+	    showRaQuo();
+	    //toggleNextElements(currentIndex);
+	}
+	else
+	{
+	    glob.showDefn=true; //toggling showDefn
+	    $flashcard.flip({direction:'rl', color: '#00f'});
+	    glob.solutionVisible= 1;
+	    showRaQuo();
+	}
+    }	   
+    showCurrentFlashcard();
+}
+
+

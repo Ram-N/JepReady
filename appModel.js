@@ -58,19 +58,22 @@ function initViewedArray() {
  * The right/wrong buttons are shown only if defn is also visible
  */
 
-function toggleNextElements(currentIndex) {
+function toggleNextElements(cIndex) {
+    var $oknext = $('#small_next');
+    var $missednext = $('#missed_next');
 
     if (glob.mode == "p" || glob.mode == "r" ) {
 	return;
     }
 
     // should not allow scoring if the card has been previously viewed
-    if( viewedArray[currentIndex] == 1) {
+    if( viewedArray[cIndex] == 1) {
+	$('#next').show();
+	$oknext.hide();
+	$missednext.hide();
 	return;
     }
 
-    var $oknext = $('#small_next');
-    var $missednext = $('#missed_next');
 
     if (glob.solutionVisible){
 	$('#next').hide();
