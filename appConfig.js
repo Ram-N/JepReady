@@ -2,12 +2,12 @@
 
 
 // ADD YOUR OPENMINDS APP ID HERE
-var APP_ID = '5021953d94d94a0dc100126f'; //JepReady's AppId
-//var APP_ID = '5026153494d94a29659aa97f'; //JepReady on GitHub
+//var APP_ID = '5021953d94d94a0dc100126f'; //JepReady's AppId
+var APP_ID = '5026153494d94a29659aa97f'; //JepReady on GitHub
 
 // SPECIFY URL OF YOUR REDIRECT URL HERE
-var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
-//var REDIRECT_URI = 'http://ram-n.github.com/JepReady/oauth_redirect.html';
+//var REDIRECT_URI = 'http://localhost/~u163202/JepReady/oauth_redirect.html';
+var REDIRECT_URI = 'http://ram-n.github.com/JepReady/oauth_redirect.html';
 
 // The OpenMinds API host. (You don't need to change this)
 var API_ROOT = 'http://api.openminds.io';
