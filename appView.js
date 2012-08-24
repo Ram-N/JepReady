@@ -1,3 +1,5 @@
+//Javascript document
+//Your app's "View" related functions and utilities go in this file.
 
 
 function newTableRow(idname) {
@@ -25,6 +27,25 @@ function newDiv(idname) {
 }
 
 
+//Display the App's "home page
+function displayAppMenuPage(){
+    $('#menuPage').show();
+    $('#listPage').hide();
+    $('#flashcards').hide();
+    $('#listTitle').text(glob.activeListTitle);
+
+    glob.solutionVisible= 0;
+    resetScores();
+    initViewedArray();
+    glob.reviewed = 0;
+}
+
+
+function displayListPage(){
+    $('#listPage').show();
+    $('#menuPage').hide();
+    $('#flashcards').hide();
+}
 
 
 /**
@@ -173,7 +194,6 @@ function createCardElements() {
 
     var $score = $('<div id="score" > </div>');
 
-    $score.text("Score" + glob.correct + "/" + glob.reviewed);
     $backbutton.text("Back to Menu");
     $('#flashcards').append($oknext);
     $('#flashcards').append($missednext);
@@ -187,46 +207,7 @@ function createCardElements() {
 
 
 
-
-function updateScores(gotit) {
-    var $score = $('#score');
-
-    if (glob.mode == "p" || glob.mode == "r") {
-	return;
-    }
-
-    if(gotit){
-	glob.correct = glob.correct+1;
-    }
-    else{
-	glob.wrong = glob.wrong+1;
-    }
-
-}
-
-
-
-function displayAppMenuPage(){
-
-    $('#menuPage').show();
-    $('#listPage').hide();
-    $('#flashcards').hide();
-    $('#listTitle').text(glob.activeListTitle);
-
-    glob.solutionVisible= 0;
-    resetScores();
-    initViewedArray();
-    glob.reviewed = 0;
-
-}
-
-function displayListPage(){
-    $('#listPage').show();
-    $('#menuPage').hide();
-    $('#flashcards').hide();
-}
-
-
+//Display the cards.
 function showCurrentFlashcard() {
 
     var $defn = $('#defn');
@@ -234,8 +215,8 @@ function showCurrentFlashcard() {
     var $score = $('#score');
 
     var item = glob.list.items[glob.currentIndex]; //we have the item
-    $score.text(" Score " + glob.correct + " / " + (glob.reviewed));
-    $question.text(item.defn); //note that for Jeopardy we switch word and defn. The answer is shown first.
+    $score.text("Score " + glob.correct + "/" + glob.reviewed + " ("+ glob.percentCorrect + "%)");
+        $question.text(item.defn); //note that for Jeopardy we switch word and defn. The answer is shown first.
     $('#index').text((glob.currentIndex+1) + '/' + glob.list.items.length);
     $defn.text(item.word);
     $question.show();

@@ -3,6 +3,26 @@
 //var omlists = ["4fe8dd92d6b77f5461000259","4fe11565d6b77f037b000a7a","4ff39c3a94d94a04370000cb","4ffb717e94d94a744b000796", "501a3c9894d94a0dc100052e"];
 
 
+function updateScores(gotit) {
+    var $score = $('#score');
+
+    if (glob.mode == "p" || glob.mode == "r") {
+	return;
+    }
+
+    if(gotit){
+	glob.correct = glob.correct+1;
+    }
+    else{
+	glob.wrong = glob.wrong+1;
+    }
+
+    if(glob.reviewed != 0) {
+	glob.percentCorrect = Math.round((glob.correct/glob.reviewed)*100);
+    }
+
+}
+
 
 
 /**
@@ -28,6 +48,7 @@ function resetScores() {
     glob.correct = 0;
     glob.wrong = 0;
     glob.reviewed = 0;
+    glob.percentCorrect = 0;
 
 }
 

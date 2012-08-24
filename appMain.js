@@ -12,6 +12,7 @@ var glob = {
     reviewed: 0, //number of cards that the user has seen. The denominator
     correct:0,
     wrong:0,
+    percentCorrect: 0,
     debugFlag : 0, 
     currentIndex:0,
     showDefn: false,
@@ -97,17 +98,14 @@ function bindClickEvents(){
     var $missednext = $('#missed_next');
 
     $oknext.bind('click', function() {
-	//alert(glob.correct +  " matches " + $oknext.length);
-	glob.correct++;
-	//updateScores(1);
-	//alert($oknext.length);
-	//$next.triggerHandler('click');
+	//glob.correct++;
+	updateScores(1);
 	showNextFlashcard();
     });
 
     $missednext.click(function(){
-	glob.wrong++;
-	//updateScores(0);	
+	//glob.wrong++;
+	updateScores(0);	
 	showNextFlashcard();
     });
 
@@ -160,6 +158,10 @@ function bindClickEvents(){
     });
 
 
+    var $answer = $('#defn');
+    var $question = $('#word');
+
+
     // some key bindings
     $(window).keydown(function(e) {
 	if (e.keyCode == 39) {
@@ -168,11 +170,20 @@ function bindClickEvents(){
 	    showPrevFlashcard();
 	}
 
-	if (e.keyCode == 38 && (glob.mode == "r")) {  //up arrow
-	    //displayDefinition();
-	    $defn.show();
-	    $question.slideUp();	    
+	if(glob.mode == "r") {
+	    if (e.keyCode == 38) {  //up arrow
+		//displayDefinition();
+		$answer.show();
+		$question.slideUp();	    
+	    }
+	    
+	    if (e.keyCode == 40) {  //up arrow
+		//displayDefinition();
+		$answer.show();
+		$question.slideDown();	    
+	    }   
 	}
+
     });
 
 
