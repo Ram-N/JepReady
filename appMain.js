@@ -18,11 +18,10 @@ var glob = {
     showDefn: false,
 }; 
 
+var NUMLISTS = 3
 var viewedArray = [];
-
-var omlists = [
-    "5031ec0494d94a742611635f", "5031ec0494d94a742611635f", "5031ec0494d94a742611635f"];
-
+var omlists = ["5031ec0494d94a742611635f", "50467ae594d94a1dc7196370", "50467eaf94d94a1dc71963af"];
+var omListTitle = [];
 
 /**
  * Once we have an access token, fetch a list through the OpenMinds API
@@ -30,18 +29,21 @@ var omlists = [
  */
 function initApp() {    
 
+    populateOMListTitles(); //AppModel.js
+
     createCardElements(); //AppView.js
     createListElements();
     createMenuElements();
 
     bindClickEvents();
 
-    glob.listID = getListIDfromArray(); //in omutils.js 
+
+    glob.listID = getRandomListIDfromArray(); //random list to start off
+    getList(glob.listID, function(list) {
+	updateActiveList(list);
+    });	    
     displayAppMenuPage();
-
 }
-
-
 
 /*
  * These binding are performed once per session.
@@ -238,6 +240,10 @@ function initReviewMode(){
     
 }
 
+
+/* given an OpenMinds list that is active, display its title on the page
+ * @param list - the list object 
+ */
 
 function updateActiveList(list){
     

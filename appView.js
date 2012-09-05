@@ -32,6 +32,7 @@ function displayAppMenuPage(){
     $('#menuPage').show();
     $('#listPage').hide();
     $('#flashcards').hide();
+
     $('#listTitle').text(glob.activeListTitle);
 
     glob.solutionVisible= 0;
@@ -41,10 +42,16 @@ function displayAppMenuPage(){
 }
 
 
+/* The list elements are created in the function createListElements()
+ * This function displays those elements, when invoked.
+ */
+
 function displayListPage(){
     $('#listPage').show();
     $('#menuPage').hide();
     $('#flashcards').hide();
+
+    displayListTitles();
 }
 
 
@@ -83,7 +90,12 @@ function createMenuElements() {
 
     var $br = $('<br> </br>');
 
+    var $omlogo = $('<img src="images/om_logo.jpg" height="25" align=left align=bottom> </img');
+    $('#main').append($omlogo);
+
+
     $('#app').prepend($menuPage);
+
 
     $('#menuPage').append($appTitle);
     $('#menuPage').append($activeList);
@@ -117,6 +129,7 @@ function createMenuElements() {
     $a32.text("Self-Test");
 
 }
+
 
 
 
@@ -160,23 +173,28 @@ function createListElements() {
     $row2.append($cell21);
     $row3.append($cell31);
 
-    var $a11 = $('<a id="lopt11" href="#"> </a>');
-    var $a21 = $('<a id="lopt21" href="#"> </a>');
-    var $a31 = $('<a id="lopt31" href="#"> </a>');
+    var $a11 = $('<a id="lopt11" href="#"> </a> <br>');
+    var $a21 = $('<a id="lopt21" href="#"> </a> <br>');
+    var $a31 = $('<a id="lopt31" href="#"> </a> <br>');
 
     $cell11.append($a11);
-    $a11.text("US Presidents Set 1");
-
-    $cell21.append($a21);
-    $a21.text("US Presidents Set 2");
-
-    $cell31.append($a31);
-    $a31.text("Vice Presidents");
-
-
+    $cell11.append($a21);
+    $cell11.append($a31);
 
 }
 
+
+function displayListTitles(){
+
+    var $a11 = $('#lopt11');
+    var $a21 = $('#lopt21');
+    var $a31 = $('#lopt31');
+
+    $a11.text(omListTitle[0]);
+    $a21.text(omListTitle[1]);
+    $a31.text(omListTitle[2]);
+
+}
 
 
 
@@ -199,6 +217,8 @@ function createCardElements() {
     $('#flashcards').append($missednext);
     $('#flashcards').append($score);
     $('#flashcards').append($backbutton);
+
+
     $oknext.hide();
     $missednext.hide();
     $score.hide();

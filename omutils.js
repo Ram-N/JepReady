@@ -6,6 +6,7 @@
  * @param {Function} success The handler to call after fetching the list. The
  *   JSON list data is passed in as the first argument to the handler.
  */
+
 function getList(listId, success) {
   $.ajax({
     url: API_ROOT + '/0/data/lists/' + listId,

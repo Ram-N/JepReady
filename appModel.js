@@ -24,13 +24,31 @@ function updateScores(gotit) {
 }
 
 
+function storeTitle(list){
+    omListTitle.push(list.title);
+    
+// display all values
+    for (var i = 0; i < omListTitle.length; i++) {
+	console.log(i, omListTitle[i]);
+    }
+}
+
+
+function populateOMListTitles(){
+    var i;
+    for (i=0; i<NUMLISTS; i++){
+	getList(omlists[i], function(list) {
+	    storeTitle(list); //first arg is the om list object
+	});
+    }
+	console.log("populated Titles");
+}
 
 /**
  * choose a list randomly
  */
-function getListIDfromArray() {
-    var index = $.random(1);
-    //console.log(index)
+function getRandomListIDfromArray() {
+    var index = $.random(NUMLISTS);
     var listId = omlists[index];
     glob.listID = listId;
     return listId;

@@ -1,5 +1,7 @@
-// Configure your App to work with OpenMinds in this file.
-
+// Configure your App to work with OpenMinds in this file
+// When you register your app at openminds.io, you get a unique appID
+// You also have to enter a 'redirect uri' for your app.
+// Both of those have to be entered in this file.
 
 // ADD YOUR OPENMINDS APP ID HERE
 var APP_ID = '5021953d94d94a0dc100126f'; //JepReady's AppId
@@ -64,8 +66,6 @@ function logout() {
     $('#login').show();
   });
 }
-
-/** No need to change anything about the 3 functions above **/
 
 /**
  * Once we have an access token, we are ready to initiate the main App
