@@ -1,0 +1,30 @@
+Reduce font if the answer or question is very big
+there is a bug in RR if the prev mode is quit with answer revealed.
+
+Compact the JQ code
+Get several OM Jep lists, display them all
+Correct: JepList with (category) along with defn
+
+Add copious comments
+
+Clean up:
+Add flex in menus
+Remove elements from index.html
+
+
+ 374  git branch -D gh-pages
+ 375  git branch gh-pages
+ 376  git branch
+ 377  git checkout gh-pages
+ 379  git branch
+
+edit appConfig.js
+
+ 380  git add appConfig.js
+ 381  git remote
+
+to delete the remote gh-pages branch
+git push origin :gh-pages
+
+ 382  git push origin gh-pages
+ 383  git checkout master

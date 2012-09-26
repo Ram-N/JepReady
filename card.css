@@ -1,0 +1,156 @@
+/* CSS document
+ * all flashcard related styling is specfied here
+ */
+
+#title {
+  color: #ffffff;
+}
+
+
+#flashcards {
+  width: 600px;
+  height: 300px;
+}
+
+#prev, #next {
+  height: 300px;
+  line-height: 300px;
+  font-size: 72px;
+  width: 50px;
+  text-decoration: none;
+  #color: black;
+  text-align: center;
+  color: #ffffff;
+}
+
+#small_next {
+  height: 150px;
+  line-height: 140px;
+  font-size: 56px;
+  width: 50px;
+  text-decoration: none;
+  #color: black;
+  text-align: center;
+  color: #ffffff;
+}
+
+#missed_next {
+  height: 150px;
+  line-height: 140px;
+  font-size: 56px;
+  width: 50px;
+  text-decoration: none;
+  #color: black;
+  text-align: center;
+  color: #ffffff;
+}
+
+
+#small_next {
+  background: #0b0;
+  color: #ff0;
+}
+
+#missed_next {
+  background: #f00;
+  color: #ff0;
+}
+
+
+#small_next:hover, #missed_next:hover {
+  color: #000;
+}
+
+
+#prev:hover, #next:hover {
+  background: #000;
+  color: #ff0;
+}
+
+
+#prev {
+  float: left;
+}
+#next {
+  float: right;
+}
+
+#small_next {
+  float: right;
+}
+
+#missed_next {
+  float: right;
+}
+
+#flashcard {
+  margin: 0 10px;
+  padding: 20px;
+  width: 438px;
+  height: 258px;
+  background: #5B90F6;
+  float: left;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+#index {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#word {
+  font-size: 36px;
+  font-weight: bold;
+  #margin-top: 70px;
+  color: #c8c8c8;
+}
+
+#word:hover {
+  #color: #ff0;
+}
+
+
+#defn {
+  font-size: 30px;
+  font-weight: bold;
+  #font-style: italic;
+  margin-top: 10px;
+  color: #fff;
+}
+
+
+#button {
+  position: relative;
+  float: bottom;
+  left: 110px;
+  width: 200px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  # margin-top: 70px;
+  color: #00f;
+  background-color: #fff;
+  margin-bottom: 10px;
+  margin-right: auto;
+  margin-top: 100px;
+  text-decoration: none;
+}
+
+
+#score {
+  position: relative;
+  float: left;
+  float: bottom;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: geneva, arial, helvetica;
+  margin-top: 5px;
+  color: #000;
+  #background-color: #fff;
+  margin-left: 5px;
+  
+}

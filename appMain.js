@@ -20,7 +20,8 @@ var glob = {
 
 var NUMLISTS = 3
 var viewedArray = [];
-var omlists = ["5031ec0494d94a742611635f", "50467ae594d94a1dc7196370", "50467eaf94d94a1dc71963af"];
+var omlists = ["5031ec0494d94a742611635f", "504db0b194d94a1f523c04e7", "504dad6794d94a1f523c037e"];
+
 var omListTitle = [];
 
 /**
@@ -62,8 +63,8 @@ function bindClickEvents(){
 
     $opt12.click(function() {
 	glob.mode = "p";
+	initReviewMode();
 	getList(glob.listID, function(list) {
-	    initReviewMode();
 	    glob.list = list;
 	    startCardsReview(list);
 	});	    
@@ -71,8 +72,8 @@ function bindClickEvents(){
 
     $opt22.click(function() {
 	glob.mode = "r";
+	initReviewMode();
 	getList(glob.listID, function(list) {
-	    initReviewMode();
 	    glob.list = list;
 	    startCardsReview(list);
 	});	    
@@ -80,8 +81,8 @@ function bindClickEvents(){
     
     $opt32.click(function() {
 	glob.mode = "t";
+	initReviewMode();
 	getList(glob.listID, function(list) {
-	    initReviewMode();
 	    glob.list = list;
 	    startCardsReview(list);
 	});
@@ -211,15 +212,18 @@ function initReviewMode(){
     var $next = $('#next');
     var $prev = $('#prev');
 
-    if (glob.mode == "t") {
+    glob.showDefn = false;
+
+    if (glob.mode == "t") { //test
 	$score.show();
 	$next.show()
 	$prev.show();
 	$oknext.hide();
 	$missednext.hide();
+	$defn.hide();
     }
 
-    if (glob.mode == "r") {
+    if (glob.mode == "r") { //rapid review
 	$score.hide();
 	$next.show()
 	$oknext.hide();
@@ -229,12 +233,14 @@ function initReviewMode(){
 	$question.show();	    
     }
 
-    if (glob.mode == "p") {
+    //practice
+    if (glob.mode == "p") { 
 	$score.hide();
 	$next.show()
 	$oknext.hide();
 	$missednext.hide();
 	$prev.show();
+	$defn.hide();
     }
 
     

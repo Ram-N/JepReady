@@ -67,6 +67,7 @@ function resetScores() {
     glob.wrong = 0;
     glob.reviewed = 0;
     glob.percentCorrect = 0;
+    glob.showDefn = false;
 
 }
 
